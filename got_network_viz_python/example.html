@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000;
+            height: 600;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "sql-server", "label": "sql-server", "shape": "dot", "size": 10}, {"id": ".net", "label": ".net", "shape": "dot", "size": 10}, {"id": "asp.net", "label": "asp.net", "shape": "dot", "size": 10}, {"id": "c#", "label": "c#", "shape": "dot", "size": 10}, {"id": "entity-framework", "label": "entity-framework", "shape": "dot", "size": 10}, {"id": "wpf", "label": "wpf", "shape": "dot", "size": 10}, {"id": "asp.net-web-api", "label": "asp.net-web-api", "shape": "dot", "size": 10}, {"id": "linq", "label": "linq", "shape": "dot", "size": 10}, {"id": "wcf", "label": "wcf", "shape": "dot", "size": 10}, {"id": "tdd", "label": "tdd", "shape": "dot", "size": 10}, {"id": "agile", "label": "agile", "shape": "dot", "size": 10}, {"id": "jquery", "label": "jquery", "shape": "dot", "size": 10}, {"id": "ajax", "label": "ajax", "shape": "dot", "size": 10}, {"id": "angularjs", "label": "angularjs", "shape": "dot", "size": 10}, {"id": "css", "label": "css", "shape": "dot", "size": 10}, {"id": "html", "label": "html", "shape": "dot", "size": 10}, {"id": "html5", "label": "html5", "shape": "dot", "size": 10}, {"id": "javascript", "label": "javascript", "shape": "dot", "size": 10}, {"id": "php", "label": "php", "shape": "dot", "size": 10}, {"id": "twitter-bootstrap", "label": "twitter-bootstrap", "shape": "dot", "size": 10}, {"id": "mysql", "label": "mysql", "shape": "dot", "size": 10}, {"id": "json", "label": "json", "shape": "dot", "size": 10}, {"id": "xml", "label": "xml", "shape": "dot", "size": 10}, {"id": "docker", "label": "docker", "shape": "dot", "size": 10}, {"id": "amazon-web-services", "label": "amazon-web-services", "shape": "dot", "size": 10}, {"id": "ios", "label": "ios", "shape": "dot", "size": 10}, {"id": "android", "label": "android", "shape": "dot", "size": 10}, {"id": "swift", "label": "swift", "shape": "dot", "size": 10}, {"id": "osx", "label": "osx", "shape": "dot", "size": 10}, {"id": "objective-c", "label": "objective-c", "shape": "dot", "size": 10}, {"id": "iphone", "label": "iphone", "shape": "dot", "size": 10}, {"id": "xcode", "label": "xcode", "shape": "dot", "size": 10}, {"id": "android-studio", "label": "android-studio", "shape": "dot", "size": 10}, {"id": "java", "label": "java", "shape": "dot", "size": 10}, {"id": "hibernate", "label": "hibernate", "shape": "dot", "size": 10}, {"id": "spring", "label": "spring", "shape": "dot", "size": 10}, {"id": "typescript", "label": "typescript", "shape": "dot", "size": 10}, {"id": "angular", "label": "angular", "shape": "dot", "size": 10}, {"id": "angular2", "label": "angular2", "shape": "dot", "size": 10}, {"id": "reactjs", "label": "reactjs", "shape": "dot", "size": 10}, {"id": "express", "label": "express", "shape": "dot", "size": 10}, {"id": "node.js", "label": "node.js", "shape": "dot", "size": 10}, {"id": "react-native", "label": "react-native", "shape": "dot", "size": 10}, {"id": "redux", "label": "redux", "shape": "dot", "size": 10}, {"id": "mongodb", "label": "mongodb", "shape": "dot", "size": 10}, {"id": "redis", "label": "redis", "shape": "dot", "size": 10}, {"id": "nginx", "label": "nginx", "shape": "dot", "size": 10}, {"id": "apache", "label": "apache", "shape": "dot", "size": 10}, {"id": "scala", "label": "scala", "shape": "dot", "size": 10}, {"id": "apache-spark", "label": "apache-spark", "shape": "dot", "size": 10}, {"id": "hadoop", "label": "hadoop", "shape": "dot", "size": 10}, {"id": "linux", "label": "linux", "shape": "dot", "size": 10}, {"id": "bash", "label": "bash", "shape": "dot", "size": 10}, {"id": "c++", "label": "c++", "shape": "dot", "size": 10}, {"id": "c", "label": "c", "shape": "dot", "size": 10}, {"id": "qt", "label": "qt", "shape": "dot", "size": 10}, {"id": "laravel", "label": "laravel", "shape": "dot", "size": 10}, {"id": "codeigniter", "label": "codeigniter", "shape": "dot", "size": 10}, {"id": "wordpress", "label": "wordpress", "shape": "dot", "size": 10}, {"id": "sass", "label": "sass", "shape": "dot", "size": 10}, {"id": "less", "label": "less", "shape": "dot", "size": 10}, {"id": "python", "label": "python", "shape": "dot", "size": 10}, {"id": "django", "label": "django", "shape": "dot", "size": 10}, {"id": "machine-learning", "label": "machine-learning", "shape": "dot", "size": 10}, {"id": "flask", "label": "flask", "shape": "dot", "size": 10}, {"id": "vba", "label": "vba", "shape": "dot", "size": 10}, {"id": "excel", "label": "excel", "shape": "dot", "size": 10}, {"id": "excel-vba", "label": "excel-vba", "shape": "dot", "size": 10}, {"id": "github", "label": "github", "shape": "dot", "size": 10}, {"id": "git", "label": "git", "shape": "dot", "size": 10}, {"id": "jsp", "label": "jsp", "shape": "dot", "size": 10}, {"id": "spring-boot", "label": "spring-boot", "shape": "dot", "size": 10}, {"id": "maven", "label": "maven", "shape": "dot", "size": 10}, {"id": "spring-mvc", "label": "spring-mvc", "shape": "dot", "size": 10}, {"id": "java-ee", "label": "java-ee", "shape": "dot", "size": 10}, {"id": "jenkins", "label": "jenkins", "shape": "dot", "size": 10}, {"id": "plsql", "label": "plsql", "shape": "dot", "size": 10}, {"id": "oracle", "label": "oracle", "shape": "dot", "size": 10}, {"id": "web-services", "label": "web-services", "shape": "dot", "size": 10}, {"id": "rest", "label": "rest", "shape": "dot", "size": 10}, {"id": "ruby-on-rails", "label": "ruby-on-rails", "shape": "dot", "size": 10}, {"id": "ruby", "label": "ruby", "shape": "dot", "size": 10}, {"id": "testing", "label": "testing", "shape": "dot", "size": 10}, {"id": "selenium", "label": "selenium", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "sql-server", "label": 1, "to": ".net", "value": 32.322524219339904, "weight": 1}, {"from": "sql-server", "label": 1, "to": "asp.net", "value": 59.67328948689907, "weight": 1}, {"from": "sql-server", "label": 1, "to": "c#", "value": 45.91465123552504, "weight": 1}, {"from": "sql-server", "label": 1, "to": "entity-framework", "value": 32.62377908692168, "weight": 1}, {"from": ".net", "label": 1, "to": "asp.net", "value": 48.40702996199019, "weight": 1}, {"from": ".net", "label": 1, "to": "wpf", "value": 32.35092522005943, "weight": 1}, {"from": ".net", "label": 1, "to": "c#", "value": 62.167895042923824, "weight": 1}, {"from": "asp.net", "label": 1, "to": "c#", "value": 80.4485421720991, "weight": 1}, {"from": "asp.net", "label": 1, "to": "asp.net-web-api", "value": 47.38627215537402, "weight": 1}, {"from": "asp.net", "label": 1, "to": "entity-framework", "value": 48.1136690894626, "weight": 1}, {"from": "asp.net", "label": 1, "to": "linq", "value": 31.58127774617085, "weight": 1}, {"from": "asp.net", "label": 1, "to": "wcf", "value": 40.95142172605998, "weight": 1}, {"from": "wpf", "label": 1, "to": "c#", "value": 38.95749217569616, "weight": 1}, {"from": "wpf", "label": 1, "to": "wcf", "value": 53.17990345536856, "weight": 1}, {"from": "c#", "label": 1, "to": "entity-framework", "value": 30.728425581793207, "weight": 1}, {"from": "tdd", "label": 1, "to": "agile", "value": 37.14658992420456, "weight": 1}, {"from": "jquery", "label": 1, "to": "ajax", "value": 50.56672861589973, "weight": 1}, {"from": "jquery", "label": 1, "to": "angularjs", "value": 30.34794743352026, "weight": 1}, {"from": "jquery", "label": 1, "to": "css", "value": 66.67420569975171, "weight": 1}, {"from": "jquery", "label": 1, "to": "html", "value": 44.23362023021944, "weight": 1}, {"from": "jquery", "label": 1, "to": "html5", "value": 47.49277338891457, "weight": 1}, {"from": "jquery", "label": 1, "to": "javascript", "value": 57.84183152642191, "weight": 1}, {"from": "jquery", "label": 1, "to": "php", "value": 46.619090898232265, "weight": 1}, {"from": "jquery", "label": 1, "to": "twitter-bootstrap", "value": 36.79192549817867, "weight": 1}, {"from": "jquery", "label": 1, "to": "mysql", "value": 35.71297781108102, "weight": 1}, {"from": "ajax", "label": 1, "to": "json", "value": 32.94744601093195, "weight": 1}, {"from": "json", "label": 1, "to": "xml", "value": 42.721668458812765, "weight": 1}, {"from": "docker", "label": 1, "to": "amazon-web-services", "value": 32.198071014100535, "weight": 1}, {"from": "ios", "label": 1, "to": "android", "value": 39.77803622570551, "weight": 1}, {"from": "ios", "label": 1, "to": "swift", "value": 87.21964246099864, "weight": 1}, {"from": "ios", "label": 1, "to": "osx", "value": 30.341581071883272, "weight": 1}, {"from": "ios", "label": 1, "to": "objective-c", "value": 78.75928046651394, "weight": 1}, {"from": "ios", "label": 1, "to": "iphone", "value": 57.15857405623158, "weight": 1}, {"from": "ios", "label": 1, "to": "xcode", "value": 46.36509077387072, "weight": 1}, {"from": "android", "label": 1, "to": "android-studio", "value": 33.661083176336234, "weight": 1}, {"from": "android", "label": 1, "to": "java", "value": 50.984730766476574, "weight": 1}, {"from": "java", "label": 1, "to": "hibernate", "value": 32.52356510452292, "weight": 1}, {"from": "java", "label": 1, "to": "spring", "value": 43.954259225314345, "weight": 1}, {"from": "typescript", "label": 1, "to": "angular", "value": 31.03648178393663, "weight": 1}, {"from": "typescript", "label": 1, "to": "angular2", "value": 38.87998222920348, "weight": 1}, {"from": "reactjs", "label": 1, "to": "angularjs", "value": 31.62020230471286, "weight": 1}, {"from": "reactjs", "label": 1, "to": "express", "value": 31.924272588963444, "weight": 1}, {"from": "reactjs", "label": 1, "to": "javascript", "value": 33.56735910485145, "weight": 1}, {"from": "reactjs", "label": 1, "to": "node.js", "value": 55.19274755197871, "weight": 1}, {"from": "reactjs", "label": 1, "to": "react-native", "value": 61.53102297253567, "weight": 1}, {"from": "reactjs", "label": 1, "to": "redux", "value": 65.12985505970208, "weight": 1}, {"from": "angularjs", "label": 1, "to": "mongodb", "value": 31.510711170360768, "weight": 1}, {"from": "angularjs", "label": 1, "to": "javascript", "value": 39.37662666227728, "weight": 1}, {"from": "angularjs", "label": 1, "to": "node.js", "value": 47.56352702530362, "weight": 1}, {"from": "mongodb", "label": 1, "to": "express", "value": 48.76806081178149, "weight": 1}, {"from": "mongodb", "label": 1, "to": "node.js", "value": 58.65780661217398, "weight": 1}, {"from": "mongodb", "label": 1, "to": "redis", "value": 33.554731128787694, "weight": 1}, {"from": "javascript", "label": 1, "to": "css", "value": 75.53660009612221, "weight": 1}, {"from": "javascript", "label": 1, "to": "html", "value": 59.75548884052987, "weight": 1}, {"from": "javascript", "label": 1, "to": "html5", "value": 47.00636375705097, "weight": 1}, {"from": "javascript", "label": 1, "to": "node.js", "value": 42.73172932305638, "weight": 1}, {"from": "javascript", "label": 1, "to": "php", "value": 47.3281575555596, "weight": 1}, {"from": "node.js", "label": 1, "to": "express", "value": 58.829076622959285, "weight": 1}, {"from": "nginx", "label": 1, "to": "apache", "value": 48.583173464083416, "weight": 1}, {"from": "scala", "label": 1, "to": "apache-spark", "value": 50.79184563415286, "weight": 1}, {"from": "apache-spark", "label": 1, "to": "hadoop", "value": 59.82678558413366, "weight": 1}, {"from": "asp.net-web-api", "label": 1, "to": "entity-framework", "value": 31.18349509959109, "weight": 1}, {"from": "entity-framework", "label": 1, "to": "linq", "value": 54.00592956009751, "weight": 1}, {"from": "entity-framework", "label": 1, "to": "wcf", "value": 32.81595165036012, "weight": 1}, {"from": "linq", "label": 1, "to": "wcf", "value": 34.58709265871981, "weight": 1}, {"from": "linux", "label": 1, "to": "bash", "value": 38.88811575032741, "weight": 1}, {"from": "c++", "label": 1, "to": "c", "value": 80.89104614147385, "weight": 1}, {"from": "c++", "label": 1, "to": "qt", "value": 30.144660032562147, "weight": 1}, {"from": "laravel", "label": 1, "to": "codeigniter", "value": 31.658709317460826, "weight": 1}, {"from": "laravel", "label": 1, "to": "php", "value": 45.88473321024233, "weight": 1}, {"from": "codeigniter", "label": 1, "to": "php", "value": 37.40149646160739, "weight": 1}, {"from": "php", "label": 1, "to": "css", "value": 51.447604909108925, "weight": 1}, {"from": "php", "label": 1, "to": "html", "value": 45.66104087971069, "weight": 1}, {"from": "php", "label": 1, "to": "html5", "value": 32.350506919162136, "weight": 1}, {"from": "php", "label": 1, "to": "mysql", "value": 65.07025912410015, "weight": 1}, {"from": "php", "label": 1, "to": "wordpress", "value": 41.03704549651282, "weight": 1}, {"from": "css", "label": 1, "to": "html", "value": 126.57112712972764, "weight": 1}, {"from": "css", "label": 1, "to": "html5", "value": 87.13826986156899, "weight": 1}, {"from": "css", "label": 1, "to": "twitter-bootstrap", "value": 31.56405510257182, "weight": 1}, {"from": "css", "label": 1, "to": "wordpress", "value": 31.264824668848835, "weight": 1}, {"from": "css", "label": 1, "to": "sass", "value": 40.96336126549837, "weight": 1}, {"from": "html5", "label": 1, "to": "sass", "value": 32.070376656092115, "weight": 1}, {"from": "sass", "label": 1, "to": "less", "value": 60.5459411279876, "weight": 1}, {"from": "python", "label": 1, "to": "django", "value": 49.90594295368325, "weight": 1}, {"from": "python", "label": 1, "to": "machine-learning", "value": 30.27077436735024, "weight": 1}, {"from": "django", "label": 1, "to": "flask", "value": 42.33664313992495, "weight": 1}, {"from": "vba", "label": 1, "to": "excel", "value": 45.26074988295236, "weight": 1}, {"from": "vba", "label": 1, "to": "excel-vba", "value": 49.61621727834464, "weight": 1}, {"from": "excel", "label": 1, "to": "excel-vba", "value": 54.50523562629742, "weight": 1}, {"from": "github", "label": 1, "to": "git", "value": 56.20246391729147, "weight": 1}, {"from": "jsp", "label": 1, "to": "hibernate", "value": 39.4069459855106, "weight": 1}, {"from": "jsp", "label": 1, "to": "spring", "value": 30.61333985121873, "weight": 1}, {"from": "hibernate", "label": 1, "to": "spring-boot", "value": 30.232903706376277, "weight": 1}, {"from": "hibernate", "label": 1, "to": "maven", "value": 34.100052024791246, "weight": 1}, {"from": "hibernate", "label": 1, "to": "spring-mvc", "value": 64.10989821309226, "weight": 1}, {"from": "hibernate", "label": 1, "to": "java-ee", "value": 39.90817378554484, "weight": 1}, {"from": "hibernate", "label": 1, "to": "spring", "value": 103.26828446355265, "weight": 1}, {"from": "spring-boot", "label": 1, "to": "spring", "value": 57.04039265671136, "weight": 1}, {"from": "spring-boot", "label": 1, "to": "spring-mvc", "value": 60.61682620955685, "weight": 1}, {"from": "maven", "label": 1, "to": "jenkins", "value": 33.47708077913068, "weight": 1}, {"from": "maven", "label": 1, "to": "spring", "value": 39.53022984092444, "weight": 1}, {"from": "spring-mvc", "label": 1, "to": "spring", "value": 63.33021731315284, "weight": 1}, {"from": "java-ee", "label": 1, "to": "spring", "value": 39.812105148516856, "weight": 1}, {"from": "swift", "label": 1, "to": "iphone", "value": 36.02337467321895, "weight": 1}, {"from": "swift", "label": 1, "to": "objective-c", "value": 79.08853577916759, "weight": 1}, {"from": "swift", "label": 1, "to": "xcode", "value": 48.62033486702057, "weight": 1}, {"from": "objective-c", "label": 1, "to": "iphone", "value": 47.97788760375011, "weight": 1}, {"from": "objective-c", "label": 1, "to": "xcode", "value": 43.41882511710604, "weight": 1}, {"from": "iphone", "label": 1, "to": "xcode", "value": 34.71286507120063, "weight": 1}, {"from": "plsql", "label": 1, "to": "oracle", "value": 45.06151433906438, "weight": 1}, {"from": "web-services", "label": 1, "to": "rest", "value": 33.69066907565828, "weight": 1}, {"from": "ruby-on-rails", "label": 1, "to": "ruby", "value": 95.36131071220332, "weight": 1}, {"from": "testing", "label": 1, "to": "selenium", "value": 33.685943095200074, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
